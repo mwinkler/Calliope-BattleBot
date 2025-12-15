@@ -1,0 +1,27 @@
+{
+    "name": "remote bot",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "v3": "*",
+        "radio-broadcast": "*",
+        "MotionKit V2": "github:tinysuperlab/motionkitv2#v0.1.2",
+        "lcd-16x2": "github:calliope-net/lcd-16x2#v2.0.6"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "8.1.11",
+        "targetId": "calliopemini"
+    },
+    "supportedTargets": [
+        "calliopemini"
+    ],
+    "preferredEditor": "blocksprj"
+}
