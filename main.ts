@@ -16,9 +16,6 @@ radio.onReceivedString(function (receivedString) {
     } else if (receivedString == "b_16_on") {
         maqueen.servoRun(maqueen.Servos.S1, 30)
     }
-    else if (receivedString == "b_14_on") {
-        maqueen.servoRun(maqueen.Servos.S1, 100)
-    }
 })
 radio.onReceivedValue(function (name, value) {
     if (name == "j_x") {
