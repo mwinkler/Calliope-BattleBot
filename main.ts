@@ -19,7 +19,7 @@ radio.onReceivedString(function (receivedString) {
 radio.onReceivedValue(function (name, value) {
     if (name == "j_x") {
         lcd16x2rgb.setCursor(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), 0, 0)
-        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "x: " + value + " ir: " + maqueen.irRead())
+        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "x: " + value + "   ")
         joy_x = mapJoy(value, 520, 540, 0, 1023)
     }
     if (name == "j_y") {
