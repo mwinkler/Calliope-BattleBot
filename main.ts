@@ -13,20 +13,23 @@ function setMotorSpeed (motor: number, speed: number) {
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "b_1_on") {
         music.play(music.builtinPlayableSoundEffect(soundExpression.giggle), music.PlaybackMode.InBackground)
-    } else if (receivedString == "motor aus") {
-    	
+    } else if (receivedString == "b_16_on") {
+        maqueen.servoRun(maqueen.Servos.S1, 30)
+    }
+    else if (receivedString == "b_14_on") {
+        maqueen.servoRun(maqueen.Servos.S1, 100)
     }
 })
 radio.onReceivedValue(function (name, value) {
     if (name == "j_x") {
         lcd16x2rgb.setCursor(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), 0, 0)
-        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "" + value + "   ")
+        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "x: " + value + "   ")
         joy_x = mapJoy(value, 520, 540, 0, 1023)
     }
     if (name == "j_y") {
         lcd16x2rgb.setCursor(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), 1, 0)
-        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "" + value + "   ")
-        joy_y = mapJoy(value, 470, 500, 0, 980)
+        lcd16x2rgb.writeLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), "y: " + value + "   ")
+        joy_y = mapJoy(value, 460, 510, 0, 980)
     }
     setMotorSpeed(maqueen.Motors.M1, joy_y + joy_x)
     setMotorSpeed(maqueen.Motors.M2, joy_y - joy_x)
