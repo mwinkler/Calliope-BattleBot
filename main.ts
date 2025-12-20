@@ -1,6 +1,19 @@
 function updateMotorSpeed () {
     if (auto_steer_mode) {
-    	
+        auto_speed = joy_y
+        if (linesensor_l && !(linesensor_r)) {
+            // Left sensor on line - turn right
+            setMotorSpeed(maqueen.Motors.M1, 0)
+            setMotorSpeed(maqueen.Motors.M2, auto_speed)
+        } else if (!(linesensor_l) && linesensor_r) {
+            // Right sensor on line - turn left
+            setMotorSpeed(maqueen.Motors.M1, auto_speed)
+            setMotorSpeed(maqueen.Motors.M2, 0)
+        } else {
+            // Neither sensor on line - go straight slowly
+            setMotorSpeed(maqueen.Motors.M1, auto_speed)
+            setMotorSpeed(maqueen.Motors.M2, auto_speed)
+        }
     } else {
         setMotorSpeed(maqueen.Motors.M1, joy_y + joy_x)
         setMotorSpeed(maqueen.Motors.M2, joy_y - joy_x)
@@ -46,18 +59,20 @@ function mapJoy (value: number, deadzone_low: number, deadzone_high: number, low
     }
     return 0
 }
+let joy_x = 0
 let linesensor_r = false
 let linesensor_l = false
-let joy_x = 0
 let joy_y = 0
-let gripper_open = false
+let auto_speed = 0
 let auto_steer_mode = false
+let gripper_open = false
 lcd16x2rgb.initRGB(lcd16x2rgb.lcd16x2rgb_eADDR(lcd16x2rgb.eADDR_RGB.RGB_16x2_V5), false)
 lcd16x2rgb.setRGB1(lcd16x2rgb.lcd16x2rgb_eADDR(lcd16x2rgb.eADDR_RGB.RGB_16x2_V5), 0xff00ff)
 lcd16x2rgb.initLCD(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E), false)
 lcd16x2rgb.clearScreen(lcd16x2rgb.lcd16x2_eADDR(lcd16x2rgb.eADDR_LCD.LCD_16x2_x3E))
 maqueen.motorStop(maqueen.Motors.All)
 maqueen.servoRun(maqueen.Servos.S1, 100)
+maqueen.setColor(0xff0000)
 radio.setGroup(24)
 basic.forever(function () {
     if (auto_steer_mode) {
@@ -65,5 +80,5 @@ basic.forever(function () {
         linesensor_r = maqueen.readPatrol(maqueen.Patrol.PatrolRight, maqueen.Brightness.Dark)
         updateMotorSpeed()
     }
-    basic.pause(100)
+    basic.pause(50)
 })
